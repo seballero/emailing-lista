@@ -4,7 +4,7 @@ Plugin Name: Email Suscripción
 Plugin URI: http://www.seballero.com
 Description: Plugin para suscribirse a e-mailing
 Author: Sebastian Orellana
-Version: 1.0
+Version: 0.1
 Author URI: http://www.seballero.com 
 */
 
