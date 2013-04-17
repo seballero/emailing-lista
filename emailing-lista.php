@@ -9,13 +9,53 @@ Author URI: http://www.seballero.com
 */
 
 
+
 /*---------------------------------------------------
 register settings
 ----------------------------------------------------*/
+
 function theme_settings_init(){
-register_setting( 'theme_settings_page', 'theme_settings_page' );
+
+    global $plugin_page;
+    if ( isset($_POST['exportar_xls']) && $plugin_page == 'emailing_list' ) {
+    $hoy = date("Y-m-d");
+    header("Content-Type: application/vnd.ms-excel");
+    header("Expires: 0");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("content-disposition: attachment;filename=emailing-$hoy.xls");
+    ?>
+    <html>
+    <head>
+    <meta http-equiv=”Content-Type” content=”text/html; charset=utf-8″ />
+    <title>Lisa de e-malining</title>
+    </head>
+    <body>
+    <?php
+    echo "<table>
+    <thead>    
+    <tr>
+    <th>Correo</th>
+    </tr>
+    </thead>
+    ";
+
+    global $wpdb;
+    $result = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix."emailinglist GROUP BY email"); 
+    foreach($result as $r)
+    {
+            echo "<tbody><tr>";
+            echo "<td>".$r->email."</td>";
+            echo "</tr></tbody>";
+    }
+    echo "</table>";
+    exit;
+    }
+    
+    register_setting( 'theme_settings_page', 'theme_settings_page' );
 }
- 
+
+
+
 /*---------------------------------------------------
 add settings page to menu
 ----------------------------------------------------*/
@@ -28,6 +68,7 @@ add actions
 ----------------------------------------------------*/
 add_action( 'admin_init', 'theme_settings_init' );
 add_action( 'admin_menu', 'add_settings_page' );
+
 
 
 global $emailing_db_version;
@@ -315,12 +356,13 @@ class pagination {
 /*---------------------------------------------------
 Theme Emaling Suscripción
 ----------------------------------------------------*/
-function emailing() {
-    ?>
+function emailing() {?>
          <div class="wrap">
          <div id="icon-users" class="icon32"></div>
-         <h2><?php _e( ' Listado para E-mailing' ) //your admin panel title ?></h2><br/>
-         <a class="button-primary" href="<?php echo esc_url(plugins_url('export.php', __FILE__)); ?>">Descargar listado en una tabla Excel</a><br/><br/>
+         <h2><?php _e( ' Listado para E-mailing' ) //your admin panel title ?></h2><br/><br/>
+         <form method="post" id="download_form" action="">
+            <input type="submit" name="exportar_xls" class="button-primary" value="<?php _e('Exportar Tabla a Excel'); ?>" />
+    </form><br/><br/>
          <?php
 global $wpdb;
 $pagination_count = $wpdb->get_var($wpdb->prepare("SELECT * FROM ".$wpdb->prefix."emailinglist GROUP BY email"));
