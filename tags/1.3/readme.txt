@@ -1,9 +1,9 @@
-=== Email Suscripcion ===
-Contributors: Swashata Ghosh
-Tags: subscription, e-mailing, mailing, mail, users
+=== Emailing Subscription ===
+Contributors: seballero
+Tags: subscription, e-mailing, mailing, emailing, mail, users
 Requires at least: 3.4
 Tested up to: 3.4.2
-Stable tag: 1.0
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,10 +22,14 @@ The mailing list in the admin page (http://you-site.com/wp-admin/admin.php?page=
 Requirements:  
 * WordPress 3.4 or later  
 
+= Translators =
+
+* Spanish (es_ES) - [Sebastián Orellana](http://www.seballero.com)
+
 == Installation ==
 
 1. Install and activate the plugin
-2. Add the form function in your template  <?php if(function_exists('emailing_form')) { emailing_form();} ?>
+2. Add the form function in your template <code><?php if(function_exists('emailing_form')) { emailing_form();} ?></code>
 4. [OPTIONAL] Apply custom styles
 5. YOU'RE DONE!
 
@@ -33,7 +37,7 @@ Requirements:
 
 = I can add the form "subscription" Anywhere on the Template? =
 
-Yes, using the function <?php if(function_exists('emailing_form')) { emailing_form();} ?>.
+Yes, using the function <code><?php if(function_exists('emailing_form')) { emailing_form();} ?>.</code>
 
 == Screenshots ==
 
@@ -41,6 +45,16 @@ Yes, using the function <?php if(function_exists('emailing_form')) { emailing_fo
 
 == Changelog ==
 
-= 0.1 =
-* This is the first version of the plugin.
+= 1.3 =
+* Fixed pagination bug.
 
+= 1.2 =
+* Added "Show per page" pagination filter. 
+* Fixed pagination.
+
+= 1.1 =
+* Added Internationalization. 
+* Translation for: Spanish, es_ES
+
+= 1.0 =
+* This is the first version of the plugin.
